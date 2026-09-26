@@ -1,0 +1,30 @@
+{
+  "zcode-lite": {
+    "display_name": "ZCode Lite (GLM-5.3, Z.ai GLM Coding Plan Lite)",
+    "kind": "zcode-cli",
+    "auth": "browser-oauth (delegated to the official `zcode login zai`)",
+    "login_target": "zai",
+    "expected_model": "account:zai-individual-coding-plan/GLM-5.3",
+    "roles": [
+      "reviewer"
+    ]
+  },
+  "opencode-go": {
+    "display_name": "OpenCode Go (DeepSeek V4.1 Flash)",
+    "kind": "opencode",
+    "auth": "browser device login (official `opencode auth login opencode --method device`), or API key (official `opencode auth login opencode-go --method key`)",
+    "opencode_provider": "opencode-go",
+    "model": "opencode-go/deepseek-v4.1-flash",
+    "key_page": "https://opencode.ai/auth",
+    "roles": [
+      "builder"
+    ],
+    "auth_list_label": "OpenCode Go",
+    "auth_methods": [
+      "device",
+      "key"
+    ],
+    "device_provider": "opencode",
+    "device_list_label": "OpenCode Console"
+  }
+}

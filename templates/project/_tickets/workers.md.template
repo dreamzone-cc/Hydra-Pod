@@ -1,0 +1,27 @@
+# Workers
+> machine: <OS>, shell: <shell> | created: <date> | confirmed by the user: PENDING. The manager fills this in after the skill's first-use questions and trials.
+
+## Builder: opencode (opencode-go/deepseek-v4.1-flash)
+- build command (from the project root, through the watchdog):
+  `_tickets/run-watchdog.sh _receipts/<ticket>.run.jsonl 1800 -- opencode run --standalone --format json -m opencode-go/deepseek-v4.1-flash --auto "<prompt>" 2> _receipts/<ticket>.watchdog.log`
+- prompt: `~/Hydra-Pod/prompts/worker.md`
+- billing: OpenCode Go subscription
+- may see: PENDING (the user decides)
+- edit without asking (`--auto`): PENDING (needs an explicit yes)
+- trial: not yet run
+
+## Reviewer: opencode (zai-coding-plan/glm-5.3, Z.ai Lite)
+- read-only review command:
+  `_tickets/run-watchdog.sh _receipts/<ticket>.review.jsonl 1200 -- opencode run --standalone --format json -m zai-coding-plan/glm-5.3 --agent reviewer "<prompt>" 2> _receipts/<ticket>.review.watchdog.log`
+- prompt: `~/Hydra-Pod/prompts/reviewer.md`. Get the report with `~/Hydra-Pod/scripts/extract-report.py`.
+- read-only is enforced by the `reviewer` agent in this project's `opencode.json`. Adjust its bash allowlist to this project's test command.
+- never use `zai/glm-5.3`, `opencode-go/glm-5.3`, or `pi` for review
+- may see: PENDING (the user decides)
+- trial: not yet run. Run a permission trial: force write attempts and confirm `permission.rejected` and an unchanged tree.
+
+## Optional reviewer: ZCode (GLM-5.3 via the official ZCode CLI, Z.ai Lite)
+- connect once: `~/Hydra-Pod/bin/hydra-pod-connect connect zcode-lite` (browser; approve within ~5 minutes)
+- review command: `~/Hydra-Pod/bin/hydra-pod-connect review zcode-lite --prompt-file <file> --out _receipts/<ticket>.review.md`
+- prompt: `~/Hydra-Pod/prompts/reviewer-zcode.md` (needs a diff file and absolute paths)
+- read-only enforcement: all tools except Read/Glob/Grep are removed before the session starts, and MCP is disabled. Each ZCode runtime version is re-verified automatically before its first review.
+- may see: PENDING (the user decides)

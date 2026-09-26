@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "reviewer": {
+      "description": "Read-only code reviewer for Hydra-Pod tickets. Cannot edit files; shell limited to read-only git and the test suite.",
+      "mode": "primary",
+      "permission": {
+        "edit": "deny",
+        "webfetch": "deny",
+        "bash": {
+          "*": "deny",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git status*": "allow",
+          "python3 -B -m unittest*": "allow"
+        },
+        "question": "deny"
+      }
+    }
+  }
+}
